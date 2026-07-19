@@ -1,0 +1,1 @@
+This file verifies that the ChatGPT GitHub integration can create a cross-repository pull request.
