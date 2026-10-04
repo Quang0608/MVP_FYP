@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/port_metrics.schema.json",
+  "title": "Canonical Port Metrics",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "location_id": { "type": "string", "minLength": 1 },
+    "event_time": { "type": "string", "format": "date-time" },
+    "port_calls": { "type": "number", "minimum": 0 },
+    "estimated_import_volume": { "type": "number", "minimum": 0 },
+    "estimated_export_volume": { "type": "number", "minimum": 0 },
+    "activity_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "congestion_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "source": { "type": "string", "minLength": 1 }
+  },
+  "required": ["location_id", "event_time", "port_calls", "estimated_import_volume", "estimated_export_volume", "activity_score", "congestion_score", "source"]
+}

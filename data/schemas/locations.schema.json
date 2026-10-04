@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/locations.schema.json",
+  "title": "Canonical Location",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "location_id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "location_type": { "enum": ["PORT", "FACTORY", "WAREHOUSE", "DISTRIBUTION_CENTER", "CUSTOMER"] },
+    "country": { "type": "string", "minLength": 1 },
+    "city": { "type": "string", "minLength": 1 },
+    "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+    "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+    "unlocode": { "type": ["string", "null"] },
+    "capacity": { "type": "number", "minimum": 0 },
+    "status": { "enum": ["ACTIVE", "DISRUPTED", "INACTIVE"] },
+    "source": { "type": "string", "minLength": 1 }
+  },
+  "required": ["location_id", "name", "location_type", "country", "city", "latitude", "longitude", "unlocode", "capacity", "status", "source"]
+}

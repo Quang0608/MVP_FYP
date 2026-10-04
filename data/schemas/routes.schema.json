@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/routes.schema.json",
+  "title": "Canonical Route",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "route_id": { "type": "string", "minLength": 1 },
+    "source_location_id": { "type": "string", "minLength": 1 },
+    "destination_location_id": { "type": "string", "minLength": 1 },
+    "transport_mode": { "enum": ["SEA", "ROAD", "RAIL", "AIR"] },
+    "distance_km": { "type": "number", "minimum": 0 },
+    "base_duration_hours": { "type": "number", "exclusiveMinimum": 0 },
+    "base_cost": { "type": "number", "minimum": 0 },
+    "max_capacity": { "type": "number", "minimum": 0 },
+    "risk_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "status": { "enum": ["ACTIVE", "DISRUPTED", "BLOCKED", "INACTIVE"] }
+  },
+  "required": ["route_id", "source_location_id", "destination_location_id", "transport_mode", "distance_km", "base_duration_hours", "base_cost", "max_capacity", "risk_score", "status"]
+}

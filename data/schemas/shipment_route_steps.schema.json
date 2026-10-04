@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/shipment_route_steps.schema.json",
+  "title": "Canonical Shipment Route Step",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipment_id": { "type": "string", "minLength": 1 },
+    "route_version": { "type": "string", "minLength": 1 },
+    "sequence_no": { "type": "integer", "minimum": 1 },
+    "location_id": { "type": "string", "minLength": 1 },
+    "planned_arrival": { "type": "string", "format": "date-time" },
+    "planned_departure": { "type": "string", "format": "date-time" }
+  },
+  "required": ["shipment_id", "route_version", "sequence_no", "location_id", "planned_arrival", "planned_departure"]
+}

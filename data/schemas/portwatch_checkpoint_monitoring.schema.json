@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/portwatch_checkpoint_monitoring.schema.json",
+  "title": "Canonical PortWatch Checkpoint Monitoring",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "checkpoint_id": { "type": "string", "minLength": 1 },
+    "observation_date": { "type": "string", "format": "date" },
+    "vessel_count_total": { "type": ["number", "null"], "minimum": 0 },
+    "vessel_count_container": { "type": ["number", "null"], "minimum": 0 },
+    "vessel_count_dry_bulk": { "type": ["number", "null"], "minimum": 0 },
+    "vessel_count_general_cargo": { "type": ["number", "null"], "minimum": 0 },
+    "vessel_count_roro": { "type": ["number", "null"], "minimum": 0 },
+    "vessel_count_tanker": { "type": ["number", "null"], "minimum": 0 },
+    "capacity_total": { "type": ["number", "null"], "minimum": 0 },
+    "capacity_container": { "type": ["number", "null"], "minimum": 0 },
+    "capacity_dry_bulk": { "type": ["number", "null"], "minimum": 0 },
+    "capacity_general_cargo": { "type": ["number", "null"], "minimum": 0 },
+    "capacity_roro": { "type": ["number", "null"], "minimum": 0 },
+    "capacity_tanker": { "type": ["number", "null"], "minimum": 0 },
+    "source_checkpoint_id": { "type": "string", "minLength": 1 },
+    "source": { "const": "PORTWATCH" },
+    "ingested_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["checkpoint_id", "observation_date", "vessel_count_total", "vessel_count_container", "vessel_count_dry_bulk", "vessel_count_general_cargo", "vessel_count_roro", "vessel_count_tanker", "capacity_total", "capacity_container", "capacity_dry_bulk", "capacity_general_cargo", "capacity_roro", "capacity_tanker", "source_checkpoint_id", "source", "ingested_at"]
+}

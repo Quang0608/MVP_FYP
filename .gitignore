@@ -4,3 +4,6 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 reroute_agent.db
+data/cache/weather/
+frontend/node_modules/
+frontend/dist/
