@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/ports.schema.json",
+  "title": "Canonical WPI Port",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "location_id": { "type": "string", "minLength": 1 },
+    "wpi_number": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "country": { "type": "string", "minLength": 1 },
+    "unlocode": { "type": ["string", "null"] },
+    "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+    "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+    "location_type": { "const": "PORT" },
+    "source": { "const": "WPI" }
+  },
+  "required": ["location_id", "wpi_number", "name", "country", "unlocode", "latitude", "longitude", "location_type", "source"]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/portwatch_port_baselines.schema.json",
+  "title": "Derived PortWatch Port Activity Baseline",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "location_id": { "type": "string", "minLength": 1 },
+    "average_port_calls": { "type": ["number", "null"], "minimum": 0 },
+    "average_import_volume": { "type": ["number", "null"], "minimum": 0 },
+    "average_export_volume": { "type": ["number", "null"], "minimum": 0 },
+    "observation_count": { "type": "integer", "minimum": 0 },
+    "baseline_start_date": { "type": "string", "format": "date" },
+    "baseline_end_date": { "type": "string", "format": "date" },
+    "recent_change_percent": { "type": ["number", "null"] },
+    "baseline_quality": { "enum": ["LIMITED_HISTORY", "HISTORICAL"] },
+    "source": { "const": "PORTWATCH" }
+  },
+  "required": ["location_id", "average_port_calls", "average_import_volume", "average_export_volume", "observation_count", "baseline_start_date", "baseline_end_date", "recent_change_percent", "baseline_quality", "source"]
+}

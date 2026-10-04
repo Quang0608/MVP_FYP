@@ -1,0 +1,7 @@
+location_id,name,location_type,country,city,latitude,longitude,unlocode,capacity,status,source
+LOC_CN_SZX_FACTORY,Shenzhen Factory,FACTORY,China,Shenzhen,22.5431,114.0579,,500,ACTIVE,SYNTHETIC
+LOC_CN_YTN_PORT,Yantian Port,PORT,China,Shenzhen,22.5833,114.2667,CNYTN,1000,ACTIVE,WPI
+LOC_MY_KLANG_PORT,Port Klang,PORT,Malaysia,Port Klang,3.0000,101.3800,MYPKG,900,ACTIVE,WPI
+LOC_SG_SIN_PORT,Singapore Port,PORT,Singapore,Singapore,1.2644,103.8200,SGSIN,1200,ACTIVE,WPI
+LOC_SG_WAREHOUSE,Singapore Warehouse,WAREHOUSE,Singapore,Singapore,1.3500,103.8200,,700,ACTIVE,SYNTHETIC
+LOC_SG_CUSTOMER_A,Customer A,CUSTOMER,Singapore,Singapore,1.3100,103.8500,,100,ACTIVE,SYNTHETIC

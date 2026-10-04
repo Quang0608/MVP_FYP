@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/portwatch_current_state.schema.json",
+  "title": "Canonical PortWatch Current Operational State",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "location_id": { "type": "string", "minLength": 1 },
+    "source_port_id": { "type": ["string", "null"] },
+    "checkpoint_id": { "type": "string", "minLength": 1 },
+    "source_checkpoint_id": { "type": "string", "minLength": 1 },
+    "activity_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+    "activity_anomaly_score": { "type": ["number", "null"], "minimum": -1, "maximum": 1 },
+    "port_calls_total": { "type": ["number", "null"], "minimum": 0 },
+    "average_port_calls": { "type": ["number", "null"], "minimum": 0 },
+    "recent_change_percent": { "type": ["number", "null"] },
+    "capacity_pressure_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+    "operational_status": { "enum": ["NORMAL", "HIGH_ACTIVITY", "LOW_ACTIVITY", "UNKNOWN"] },
+    "status": { "enum": ["NORMAL", "BUSY", "HIGH_ACTIVITY", "LOW_ACTIVITY", "UNKNOWN"] },
+    "latest_observation_date": { "type": "string", "format": "date" },
+    "source": { "const": "PORTWATCH" },
+    "ingested_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["activity_score", "capacity_pressure_score", "status", "latest_observation_date", "source", "ingested_at"],
+  "oneOf": [
+    { "required": ["location_id", "source_port_id"] },
+    { "required": ["checkpoint_id", "source_checkpoint_id"] }
+  ]
+}

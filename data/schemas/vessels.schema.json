@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/vessels.schema.json",
+  "title": "Canonical Vessel",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "vessel_id": { "type": "string", "minLength": 1 },
+    "mmsi": { "type": "string", "pattern": "^[0-9]{9}$" },
+    "vessel_name": { "type": "string", "minLength": 1 },
+    "vessel_type": { "type": "string", "minLength": 1 },
+    "length": { "type": "number", "exclusiveMinimum": 0 },
+    "width": { "type": "number", "exclusiveMinimum": 0 },
+    "draft": { "type": "number", "minimum": 0 }
+  },
+  "required": ["vessel_id", "mmsi", "vessel_name", "vessel_type", "length", "width", "draft"]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/vessel_positions.schema.json",
+  "title": "Canonical Vessel Position",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "vessel_id": { "type": "string", "minLength": 1 },
+    "mmsi": { "type": "string", "pattern": "^[0-9]{9}$" },
+    "event_time": { "type": "string", "format": "date-time" },
+    "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+    "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+    "speed_knots": { "type": "number", "minimum": 0 },
+    "course": { "type": "number", "minimum": 0, "exclusiveMaximum": 360 },
+    "heading": { "type": "number", "minimum": 0, "exclusiveMaximum": 360 },
+    "source": { "type": "string", "minLength": 1 }
+  },
+  "required": ["vessel_id", "mmsi", "event_time", "latitude", "longitude", "speed_knots", "course", "heading", "source"]
+}

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/portwatch_current_disruptions.schema.json",
+  "title": "Current PortWatch Disruption",
+  "$ref": "portwatch_disruptions.schema.json"
+}

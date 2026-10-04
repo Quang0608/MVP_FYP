@@ -1,0 +1,4 @@
+location_id,event_time,port_calls,estimated_import_volume,estimated_export_volume,activity_score,congestion_score,source
+LOC_CN_YTN_PORT,2026-08-23T00:00:00Z,148,92000,87000,0.82,0.38,PORTWATCH
+LOC_SG_SIN_PORT,2026-08-23T00:00:00Z,176,110000,106000,0.91,0.74,PORTWATCH
+LOC_MY_KLANG_PORT,2026-08-23T00:00:00Z,121,76000,71000,0.67,0.29,PORTWATCH

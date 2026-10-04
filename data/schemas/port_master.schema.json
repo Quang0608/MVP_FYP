@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/port_master.schema.json",
+  "title": "Unified WPI-Preferred Canonical Port Master",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "location_id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "location_type": { "const": "PORT" },
+    "country": { "type": "string", "minLength": 1 },
+    "latitude": { "type": ["number", "null"], "minimum": -90, "maximum": 90 },
+    "longitude": { "type": ["number", "null"], "minimum": -180, "maximum": 180 },
+    "unlocode": { "type": ["string", "null"] },
+    "wpi_number": { "type": ["string", "null"] },
+    "canonical_source": { "enum": ["WPI", "PORTWATCH", "MANUAL_VALIDATED"] },
+    "source_entity_id": { "type": "string", "minLength": 1 },
+    "mapping_status": { "enum": ["MATCHED_WPI", "SOURCE_NATIVE", "MANUAL_MATCH", "UNRESOLVED"] },
+    "source_port_id": { "type": ["string", "null"] }
+  },
+  "required": ["location_id", "name", "location_type", "country", "latitude", "longitude", "unlocode", "wpi_number", "canonical_source", "source_entity_id", "mapping_status", "source_port_id"]
+}

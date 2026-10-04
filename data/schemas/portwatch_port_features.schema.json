@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supply-chain-reroute.local/schemas/portwatch_port_features.schema.json",
+  "title": "Derived PortWatch Port Activity Features",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "location_id": { "type": "string", "minLength": 1 },
+    "observation_date": { "type": "string", "format": "date" },
+    "port_calls_total": { "type": ["number", "null"], "minimum": 0 },
+    "port_calls_change_pct": { "type": ["number", "null"] },
+    "import_total": { "type": ["number", "null"], "minimum": 0 },
+    "import_change_pct": { "type": ["number", "null"] },
+    "export_total": { "type": ["number", "null"], "minimum": 0 },
+    "export_change_pct": { "type": ["number", "null"] },
+    "average_port_calls": { "type": ["number", "null"], "minimum": 0 },
+    "average_import_volume": { "type": ["number", "null"], "minimum": 0 },
+    "average_export_volume": { "type": ["number", "null"], "minimum": 0 },
+    "activity_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+    "activity_anomaly_score": { "type": ["number", "null"], "minimum": -1, "maximum": 1 },
+    "baseline_observation_count": { "type": "integer", "minimum": 0 },
+    "baseline_quality": { "enum": ["LIMITED_HISTORY", "HISTORICAL"] },
+    "source_port_id": { "type": ["string", "null"] },
+    "source": { "const": "PORTWATCH" },
+    "ingested_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["location_id", "observation_date", "port_calls_total", "port_calls_change_pct", "import_total", "import_change_pct", "export_total", "export_change_pct", "average_port_calls", "average_import_volume", "average_export_volume", "activity_score", "activity_anomaly_score", "baseline_observation_count", "baseline_quality", "source_port_id", "source", "ingested_at"]
+}

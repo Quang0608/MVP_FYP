@@ -1,0 +1,6 @@
+source,source_entity_id,source_entity_name,canonical_location_id
+WPI,CNYTN,Yantian Port,LOC_CN_YTN_PORT
+WPI,MYPKG,Port Klang,LOC_MY_KLANG_PORT
+WPI,SGSIN,Singapore Port,LOC_SG_SIN_PORT
+PORTWATCH,Singapore,Singapore,LOC_SG_SIN_PORT
+INTERNAL,SINGAPORE_PORT,Singapore Port,LOC_SG_SIN_PORT
