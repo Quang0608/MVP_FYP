@@ -1,7 +1,7 @@
-.PHONY: backend dashboard test
+.PHONY: backend frontend test
 backend:
 	uvicorn backend.app.main:app --reload
-dashboard:
-	streamlit run dashboard/streamlit_app.py
+frontend:
+	cd frontend && npm install && npm run dev
 test:
 	pytest backend/tests
