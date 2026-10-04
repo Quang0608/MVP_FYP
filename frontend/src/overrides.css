@@ -1,0 +1,46 @@
+/* Readability and interactive route-analysis additions. */
+.nav-group > p { font-size: 10px; }
+.nav-item { font-size: 12px; }
+.breadcrumb, .panel-eyebrow { font-size: 10px; }
+.subtitle { font-size: 12px; }
+.panel-header h2 { font-size: 14px; }
+.kpi-card span { font-size: 11px; }
+.kpi-card strong { font-size: 21px; }
+.kpi-card small { font-size: 9px; }
+.assistant-message { font-size: 11px; }
+.assistant-message p, .recommendation-box p { font-size: 11px; }
+.chat-message strong { font-size: 10px; }
+.chat-message p { font-size: 10px; }
+.assistant-input-form input { font-size: 11px; }
+.route-summary { font-size: 12px; }
+.recommendation-compare span { font-size: 9px; }
+.recommendation-compare b { font-size: 11px; }
+.disruption-help, .disruption-copy small { font-size: 9px; }
+.disruption-copy strong { font-size: 11px; }
+.filters input, .filters select { font-size: 10px; }
+td { font-size: 10px; }
+th { font-size: 9px; }
+td small { font-size: 9px; }
+.muted-text { font-size: 11px; }
+
+.route-analysis-panel { margin: 0 auto 11px; max-width: 1440px; }
+.alternative-route-list { border-top: 1px solid #1d3d56; margin-top: 11px; padding-top: 10px; }
+.alternative-route-heading { align-items: baseline; display: flex; gap: 10px; justify-content: space-between; margin-bottom: 7px; }
+.alternative-route-heading strong { color: #dceaf5; font-size: 12px; }
+.alternative-route-heading span { color: #7891a6; font-size: 9px; }
+.alternative-route { background: #0b2034; border: 1px solid #21425c; border-radius: 4px; margin-top: 6px; padding: 9px; }
+.alternative-route.selected { border-color: #27815d; box-shadow: inset 3px 0 #39d58d; }
+.alternative-route-title { align-items: center; display: flex; gap: 8px; justify-content: space-between; }
+.alternative-route-title strong { color: #dceaf5; font-size: 11px; }
+.alternative-route p { color: #b9ccda; font-size: 10px; line-height: 1.45; margin: 6px 0; }
+.alternative-route-stats { display: grid; gap: 8px; grid-template-columns: repeat(4, 1fr); }
+.alternative-route-stats span { color: #8299ad; font-size: 9px; }
+.alternative-route-stats b { color: #dceaf5; display: block; font-size: 10px; margin-top: 3px; }
+.route-unaffected { background: #0b2c2b; border: 1px solid #27815d; border-radius: 4px; margin: 9px 0; padding: 9px; }
+.route-unaffected > strong { color: #53dc91; display: block; font-size: 11px; }
+.route-unaffected > p { color: #a9d6c0; font-size: 11px; line-height: 1.5; margin: 5px 0 9px; }
+
+@media (max-width: 760px) {
+  .kpi-card strong { font-size: 18px; }
+  .alternative-route-stats { grid-template-columns: repeat(2, 1fr); }
+}
