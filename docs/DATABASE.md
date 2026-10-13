@@ -277,11 +277,19 @@ node state in this phase.
 ## Graph Storage Boundary
 
 The current graph engine remains NetworkX and SQLite remains the operational
-runtime source of truth. Phase 1 adds an opt-in Neo4j Community foundation only:
-the pinned driver, lifecycle manager, health check, and idempotent initial
-constraints/indexes are available, but no Neo4j repository is active and no
-SQLite data is imported. The Phase 1 schema is documented in
-`docs/migration/NEO4J_SCHEMA.md`.
+runtime source of truth. Phase 1 added an opt-in Neo4j Community foundation.
+Phase 2 adds a standalone, explicitly invoked importer for the frozen active
+Asia snapshot only; it does not create a Neo4j repository adapter or activate
+Neo4j for application reads or writes. The graph mapping is documented in
+`docs/migration/NEO4J_SCHEMA.md`, and the importer is
+`scripts/migration/import_sqlite_to_neo4j.py`.
+
+The Phase 2 importer loads through `load_runtime_dataset()`, validates 91
+locations, 150 routes, 220 shipments, 220 version-1 plans, and 1,000 ordered
+legs, then uses stable-key parameterized `MERGE` batches. It excludes
+compatibility/history rows, disruptions, simulation runs, agent decisions,
+PortWatch observations, and transient scenario state. A second import verifies
+the same IDs, canonical attributes, and relationship counts without duplicates.
 
 `PERSISTENCE_BACKEND=sqlite` remains the default. A later phase must introduce a
 repository adapter and parity gate before any API query or write can use Neo4j.

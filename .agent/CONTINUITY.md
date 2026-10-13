@@ -465,3 +465,13 @@ Canonical compact briefing for AI agents. Read this file together with
   live health passed, schema bootstrap passed twice with identical results, and
   read-only inspection confirmed 8 uniqueness constraints plus 5 explicit
   indexes ONLINE. Foundation tests passed again (6); Phase 2 was not started.
+- 2026-10-13T18:30:29+08:00 [USER] Requested Phase 2 active SQLite-to-Neo4j
+  import only, with dry-run, idempotence, parity, manifests, and no runtime
+  cutover or Phase 3 work.
+- 2026-10-13T18:30:29+08:00 [CODE] Added the standalone importer and CLI using
+  the canonical loader/models, stable node and relationship MERGE batches,
+  scoped stale-edge reconciliation, source/live verification, and manifests.
+- 2026-10-13T18:30:29+08:00 [TOOL] Dry-run, two live executes, and final verify
+  passed for 91 locations, 150 routes, 220 shipments, 220 plans, 1,000 legs,
+  and 3,960 relationships; no attribute or reference mismatches. Phase 3 was
+  not started.

@@ -448,8 +448,16 @@ def _backfill_route_exposure_metadata(session) -> None:
         session.commit()
 
 
-def load_runtime_dataset() -> RuntimeDataset:
-    with Session() as session:
+def load_runtime_dataset(session_factory=None) -> RuntimeDataset:
+    """Load the active canonical snapshot from the configured SQLite store.
+
+    An explicit session factory is supported for read-only migration tooling so
+    it can inspect a supplied SQLite file without changing the application
+    runtime engine or startup behavior.
+    """
+
+    active_session_factory = session_factory or Session
+    with active_session_factory() as session:
         location_rows = session.scalars(
             select(LocationRecord).order_by(LocationRecord.id)
         ).all()

@@ -685,3 +685,19 @@ See [CONCERNS.md](CONCERNS.md).
   read-only inspection confirmed 8 uniqueness constraints plus 5 explicit
   indexes in `ONLINE` state.
 - [TOOL] Foundation tests passed again (6). Phase 2 data import was not started.
+
+## Neo4j Migration Phase 2 Active Import
+
+- Date: 2026-10-13T18:30:29+08:00
+- Local issue: `ISS-0050`
+- [USER] Requested only the idempotent SQLite-to-Neo4j import of the active
+  Asia snapshot, with dry-run, parity, repeated-import, manifest, and test
+  gates; SQLite runtime ownership and all application behavior remain unchanged.
+- [CODE] Added a standalone canonical-loader importer with stable-key MERGE
+  batches for locations, routes, shipments, version-1 plans, ordered legs, and
+  approved typed relationships. Legacy/history/transient records are excluded.
+- [TOOL] Dry-run, two live execute runs, and final verify passed: 91 locations,
+  150 routes, 220 shipments, 220 plans, 1,000 legs, and 3,960 relationships;
+  no duplicate nodes, attribute mismatches, or unresolved references.
+- [ASSUMPTION] Neo4j remains a staged imported graph only; Phase 3 adapter,
+  shadow reads, and runtime cutover require separate approval.
