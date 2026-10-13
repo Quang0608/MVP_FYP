@@ -292,3 +292,13 @@ Supervisor/LLM behavior are unchanged. The parity CLI produces
 `docs/migration/phase3/PARITY_REPORT.json` and does not perform writes or alter
 the SQLite source of truth. Runtime cutover remains a later, separately gated
 phase.
+
+## Neo4j Phase 4 dependency evidence boundary
+
+`Neo4jImpactQueryService` is an explicit read-only analysis path. It traces
+remaining shipment-plan legs to disrupted locations or directed routes and can
+follow bounded same-shipment `NEXT_LEG` relationships. It returns explainable
+graph evidence, not route feasibility, optimization, disruption overlays, or
+LLM content. Cross-shipment business dependencies are unsupported because they
+are not represented by the imported schema. SQLite impact detection and the
+NetworkX deterministic routing layer remain the runtime sources of truth.

@@ -720,3 +720,21 @@ See [CONCERNS.md](CONCERNS.md).
 - [ASSUMPTION] PortWatch/provider state is excluded from canonical parity and
   both comparison paths use empty transient state. SQLite remains the runtime
   source of truth; Phase 4 has not started.
+
+## Neo4j Migration Phase 4 Dependency Queries
+
+- Date: 2026-10-13T19:02:34+08:00
+- Local issue: `ISS-0052`
+- [USER] Requested only read-only Neo4j dependency queries and explainable
+  disruption impact evidence; no runtime cutover or Phase 5.
+- [CODE] Added `Neo4jImpactQueryService` with parameterized, snapshot-scoped
+  location/route dependency queries, typed graph-path evidence, current
+  progress/completed-leg filtering, bounded `NEXT_LEG` traversal, timeout and
+  result limits, focused tests, and `phase4/IMPACT_REPORT.json`.
+- [TOOL] Live verification passed seven supported references with exact SQLite
+  dependency parity, complete frozen-impact coverage, zero evidence errors, and
+  two downstream records. Direct query timings were 33.675–1,180.118 ms,
+  average 369.004 ms. Full backend suite: 126 passed with 3 existing warnings.
+- [ASSUMPTION] The graph has no cross-shipment dependency edges; supplier,
+  inventory, ownership, and business dependencies remain unsupported and were
+  not inferred. SQLite and NetworkX remain runtime sources of truth.

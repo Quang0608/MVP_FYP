@@ -485,3 +485,14 @@ Canonical compact briefing for AI agents. Read this file together with
   220 plans/1,000 legs, 3,960 relationships, and all eight frozen scenarios;
   focused tests 4 passed and full backend tests 122 passed with 3 existing
   deprecation warnings. SQLite remains the default and Phase 4 was not started.
+- 2026-10-13T19:02:34+08:00 [USER] Requested only Neo4j migration Phase 4:
+  bounded dependency queries and explainable disruption impact evidence; no
+  runtime cutover or Phase 5.
+- 2026-10-13T19:02:34+08:00 [CODE] Added named read-only Cypher queries,
+  typed graph-path evidence, bounded same-plan NEXT_LEG traversal, timeout and
+  result limits, and `scripts/migration/verify_neo4j_impact.py`.
+- 2026-10-13T19:02:34+08:00 [TOOL] Live verification passed 7/7 supported
+  references with exact SQLite dependency parity, complete frozen-impact
+  coverage, zero evidence errors, two downstream records, and 33.675–1,180.118
+  ms query timings. Focused tests 8 passed; full backend tests 126 passed with
+  3 existing warnings. Cross-shipment dependencies remain unsupported by schema.

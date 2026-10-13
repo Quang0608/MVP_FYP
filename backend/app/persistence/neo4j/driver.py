@@ -131,15 +131,24 @@ class Neo4jConnectionManager:
         self,
         query: str,
         parameters: Mapping[str, Any] | None = None,
+        *,
+        timeout_seconds: float | None = None,
     ) -> list[dict[str, Any]]:
         """Run an allowlisted caller query through a managed read transaction."""
 
         with self.session() as session:
             return session.execute_read(
-                lambda transaction: transaction.run(
-                    query,
-                    parameters or {},
-                ).data()
+                lambda transaction: (
+                    transaction.run(
+                        query,
+                        parameters or {},
+                        **(
+                            {"timeout": timeout_seconds}
+                            if timeout_seconds is not None
+                            else {}
+                        ),
+                    ).data()
+                )
             )
 
     def execute_write(

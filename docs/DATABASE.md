@@ -299,6 +299,15 @@ Phase 2 snapshot/import scope and projects through the existing NetworkX graph
 builder. Scenario overlays remain transient and are never written to Neo4j.
 The machine-readable evidence is `docs/migration/phase3/PARITY_REPORT.json`.
 
+Phase 4 adds `Neo4jImpactQueryService` as an explicitly invoked, read-only
+analysis adapter. It returns dependency evidence for remaining active plan legs
+and bounded same-shipment `NEXT_LEG` continuations; it does not apply transient
+disruption overlays, classify route feasibility, select routes, or write graph
+state. The verification CLI is
+`scripts/migration/verify_neo4j_impact.py`, with evidence recorded in
+`docs/migration/phase4/IMPACT_REPORT.json`. SQLite-backed impact detection
+remains the application default.
+
 ## Change Rules
 
 Before changing persistence:
