@@ -65,3 +65,4 @@ issue creation require explicit user approval after the local release scope pass
 | 33 | [ISS-0041 Agent-ready backend foundation and Supervisor](ISS-0041-agent-ready-backend-supervisor.md) | DONE |
 | 34 | [ISS-0043 External signal foundation and network exposure](ISS-0043-external-signal-network-exposure.md) | IN_PROGRESS |
 | 35 | [ISS-0044 Open-Meteo weather provider foundation](ISS-0044-open-meteo-weather-provider-foundation.md) | IN_PROGRESS |
+| 36 | [ISS-0047 Neo4j migration and target-stack planning brief](ISS-0047-neo4j-migration-plan.md) | DONE |

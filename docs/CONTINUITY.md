@@ -603,3 +603,43 @@ See [CONCERNS.md](CONCERNS.md).
   retention are MVP defaults. Phase 4.2B should normalize raw hourly values and
   align them with existing deterministic traversal windows before creating
   weather signals.
+
+## Project State Summary Handoff
+
+- Date: 2026-10-04
+- Local issue: `ISS-0045`
+- [USER] Requested a standalone Markdown summary for pasting into another chat.
+- [CODE] Added `summarization_4_oct.md` with the project goal, deterministic
+  routing and LLM boundaries, runtime/data model, API, frontend, provider
+  phases, verification history, open concerns, next work, and worktree state.
+- [TOOL] Documentation-only change; no application code or data artifacts were
+  changed. Runtime tests and the local demo were not rerun.
+
+## Current Data Architecture Summary
+
+- Date: 2026-10-13
+- Local issue: `ISS-0046`
+- [USER] Requested a detailed summary of the current dataset and data
+  architecture, including schema representation.
+- [CODE] Added `summarization_of_data_architecutre.md` with the active SQLite
+  runtime boundary, Asia dataset counts, compatibility rows, canonical domain
+  models, persistence tables, WPI/PortWatch Parquet contracts, and future or
+  inactive source schemas.
+- [TOOL] Documentation-only verification passed with `git diff --check`.
+  Runtime tests and the local demo were not rerun because application behavior
+  and data were unchanged.
+
+## Neo4j Migration Planning Brief
+
+- Date: 2026-10-13
+- Local issue: `ISS-0047`
+- [USER] Requested a migration plan from SQLite toward Neo4j/Cypher,
+  NetworkX, OR-Tools CP-SAT, FastAPI, a validated tool-calling agent, and
+  React, including current project status and likely difficulties.
+- [CODE] Added `meo4j_migration.md` with the current implementation status,
+  target ownership boundaries, proposed Neo4j graph model, staged import and
+  parity plan, CP-SAT and agent constraints, rollback strategy, verification
+  gates, and a ready-to-paste planning prompt.
+- [TOOL] Documentation-only verification passed with `git diff --check`.
+  Runtime tests and the local demo were not rerun because application behavior
+  and data were unchanged.

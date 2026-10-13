@@ -1,5 +1,9 @@
 # Autonomous Supply Chain Reroute Agent — Project Brief for Codex
 
+> Historical context: this brief describes the earlier Streamlit/Neo4j-oriented
+> proposal and is not the active runtime contract. Use `README.md`,
+> `docs/ARCHITECTURE.md`, and `docs/REFACTOR_PLAN.md` for the current local MVP.
+
 ## 1. Project Title
 
 **Autonomous Supply Chain Reroute Agent Using Graph Analytics, Neo4j, FastAPI, Streamlit, and OpenAI API**

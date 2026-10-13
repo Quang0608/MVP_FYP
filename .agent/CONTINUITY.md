@@ -412,3 +412,28 @@ Canonical compact briefing for AI agents. Read this file together with
   by default and cache/snapshot retention is local MVP behavior. Normalization,
   weather ExternalSignal creation, time-aligned observation logic, and policy
   effects remain deferred to Phase 4.2B/4.3.
+
+- 2026-10-04T00:00:00+08:00 [USER] Requested a standalone Markdown project-state
+  summary that can be pasted into another chat.
+- 2026-10-04T00:00:00+08:00 [CODE] Added root-level `summarization_4_oct.md`
+  covering current architecture, runtime data, API, frontend, provider phases,
+  verification, concerns, next work, and preserved worktree state.
+- 2026-10-04T00:00:00+08:00 [TOOL] Documentation issue `ISS-0045` recorded; no
+  application code or data artifacts were changed.
+- 2026-10-13T00:00:00+08:00 [USER] Requested a detailed Markdown summary of the
+  current dataset and data architecture.
+- 2026-10-13T00:00:00+08:00 [CODE] Added root-level
+  `summarization_of_data_architecutre.md` covering the active 91-location,
+  150-route, 220-shipment, 1,000-leg Asia runtime snapshot, SQLite schemas,
+  processed WPI/PortWatch artifacts, and inactive source contracts.
+- 2026-10-13T00:00:00+08:00 [TOOL] Documentation issue `ISS-0046` recorded;
+  no application code or data artifacts were changed.
+- 2026-10-13T00:00:00+08:00 [USER] Requested a Neo4j migration brief covering
+  Cypher, NetworkX, OR-Tools CP-SAT, FastAPI, a validated tool-calling agent,
+  React, current status, and migration difficulties.
+- 2026-10-13T00:00:00+08:00 [CODE] Added root-level `meo4j_migration.md`
+  with a parity-first SQLite-to-Neo4j plan, target graph schema, solver and
+  agent boundaries, risks, verification gates, and a ready-to-paste planning
+  prompt. The requested filename spelling was preserved.
+- 2026-10-13T00:00:00+08:00 [TOOL] Documentation issue `ISS-0047` recorded;
+  no application code, database records, or deployment files were changed.
