@@ -496,3 +496,16 @@ Canonical compact briefing for AI agents. Read this file together with
   coverage, zero evidence errors, two downstream records, and 33.675–1,180.118
   ms query timings. Focused tests 8 passed; full backend tests 126 passed with
   3 existing warnings. Cross-shipment dependencies remain unsupported by schema.
+- 2026-10-13T19:21:02+08:00 [USER] Requested only Neo4j migration Phase 5:
+  transactional write repository and state-migration verification; no runtime
+  cutover, dual writes, canonical progress mutation, or Phase 6.
+- 2026-10-13T19:21:02+08:00 [CODE] Audited SQLite disruption, target,
+  simulation-run, reroute-decision, explanation, and legacy-run write paths.
+  Added scoped `Neo4jWriteRepository`, typed write errors/receipt, explicit
+  unsupported canonical progress boundary, focused tests, and live verifier.
+- 2026-10-13T19:21:02+08:00 [TOOL] Live Phase 5 verification passed 18/18
+  operations with rollback, idempotency, stale-version, invalid-reference,
+  isolated SQLite write parity, read-back, historical snapshot, and cleanup
+  evidence. The imported graph stayed at 91/150/220/220/1,000 and 3,960
+  relationships. Focused tests 25;
+  full backend 132 with 3 existing warnings; compile and diff checks passed.

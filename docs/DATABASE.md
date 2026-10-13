@@ -308,6 +308,19 @@ state. The verification CLI is
 `docs/migration/phase4/IMPACT_REPORT.json`. SQLite-backed impact detection
 remains the application default.
 
+Phase 5 adds `Neo4jWriteRepository` as an explicitly invoked write verification
+boundary for the existing disruption, simulation-run, reroute-decision, and
+decision-explanation state paths. It uses managed parameterized transactions,
+bounded JSON strings, stable idempotency keys, explicit write scopes, and
+optimistic write versions. It is not wired into FastAPI startup or request
+handlers, and there is no unsafe dual write. A Neo4j failure is surfaced to the
+caller of this opt-in adapter; it never silently falls back to SQLite. The
+active SQLite repository remains the only runtime writer. Canonical shipment
+progress, route-plan versions, and legs have no existing SQLite operational
+write path and are explicitly outside this Phase 5 adapter. Live evidence is
+recorded in `docs/migration/phase5/WRITE_REPORT.json` and uses a disposable
+scope that is cleaned after verification.
+
 ## Change Rules
 
 Before changing persistence:

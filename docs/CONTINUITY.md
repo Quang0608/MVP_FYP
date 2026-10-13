@@ -738,3 +738,29 @@ See [CONCERNS.md](CONCERNS.md).
 - [ASSUMPTION] The graph has no cross-shipment dependency edges; supplier,
   inventory, ownership, and business dependencies remain unsupported and were
   not inferred. SQLite and NetworkX remain runtime sources of truth.
+
+## Neo4j Migration Phase 5 Transactional Writes
+
+- Date: 2026-10-13T19:21:02+08:00
+- Local issue: `ISS-0053`
+- [USER] Requested only the Neo4j write repository and transactional state
+  migration boundary. SQLite remains the runtime source of truth; no dual
+  writes, runtime cutover, canonical progress mutation, or Phase 6.
+- [CODE] Audited the actual SQLite write paths and added an explicitly invoked,
+  snapshot-scoped `Neo4jWriteRepository` for disruption targets, simulation
+  runs, reroute decisions, and decision explanations. It uses managed
+  parameterized transactions, serialized bounded JSON, stable idempotency
+  keys, reference validation, and optimistic write versions.
+- [CODE] Canonical shipment progress, route-plan version creation, and
+  shipment-leg mutation are explicitly unsupported because no corresponding
+  SQLite operational write path exists in the current MVP. Legacy `runs`
+  records remain a SQLite compatibility path and were not imported.
+- [TOOL] `scripts/migration/verify_neo4j_writes.py` passed all 18 live checks in
+  `docs/migration/phase5/WRITE_REPORT.json`: write/read-back, repeat
+  idempotency, stale-version rejection, invalid status/reference rejection,
+  intentional rollback, isolated SQLite write parity, imported plan/leg
+  preservation, and exact-scope cleanup. The reference snapshot stayed at
+  91/150/220/220/1,000 and 3,960 relationships; zero owned test nodes
+  remained.
+- [TOOL] Focused Neo4j tests passed 25; full backend tests passed 132 with 3
+  existing deprecation warnings. Compilation and `git diff --check` passed.

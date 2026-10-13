@@ -302,3 +302,24 @@ graph evidence, not route feasibility, optimization, disruption overlays, or
 LLM content. Cross-shipment business dependencies are unsupported because they
 are not represented by the imported schema. SQLite impact detection and the
 NetworkX deterministic routing layer remain the runtime sources of truth.
+
+## Neo4j Phase 5 transactional write boundary
+
+`Neo4jWriteRepository` is an opt-in, snapshot-scoped adapter for the existing
+SQLite write operations: disruption/target creation, simulation-run reroute
+updates, agent-decision reconciliation, and decision explanations. Each
+operation uses a managed Neo4j transaction, parameterized Cypher, bounded JSON
+serialization, stable idempotency keys, and optimistic `write_version`
+checks. It validates references to the imported canonical snapshot and fails
+clearly on missing references, conflicting IDs, stale versions, or Neo4j
+outage. It never dual-writes, silently falls back to SQLite, or changes
+NetworkX routing, disruption classification, API contracts, frontend behavior,
+or Supervisor/LLM logic.
+
+Canonical shipment progress, route-plan version creation, and shipment-leg
+mutation are not application write paths in the current MVP and are rejected
+explicitly by the Phase 5 boundary. The Phase 2 version-1 plans and legs stay
+immutable during this phase. The live write verifier uses a unique disposable
+scope, proves rollback/idempotency/stale-write behavior, compares imported
+snapshot counts before and after, and removes only its own test records. No
+runtime cutover has occurred; SQLite remains the operational source of truth.

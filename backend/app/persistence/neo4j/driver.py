@@ -4,11 +4,14 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass
-from typing import Any, Iterator, Mapping
+from typing import Any, Callable, Iterator, Mapping, TypeVar
 
 from neo4j import GraphDatabase
 
 from ...config import Settings, settings
+
+
+TransactionResult = TypeVar("TransactionResult")
 
 
 class Neo4jConfigurationError(ValueError):
@@ -165,6 +168,15 @@ class Neo4jConnectionManager:
                     parameters or {},
                 ).data()
             )
+
+    def execute_write_transaction(
+        self,
+        work: Callable[[Any], TransactionResult],
+    ) -> TransactionResult:
+        """Run a caller-owned unit of work in one managed write transaction."""
+
+        with self.session() as session:
+            return session.execute_write(work)
 
 
 @contextmanager

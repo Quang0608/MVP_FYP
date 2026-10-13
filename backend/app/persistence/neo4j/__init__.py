@@ -16,6 +16,15 @@ from .impact import (
     Neo4jImpactQueryError,
     Neo4jImpactQueryService,
 )
+from .write_repository import (
+    Neo4jUnsupportedWriteError,
+    Neo4jWriteConflictError,
+    Neo4jWriteError,
+    Neo4jWriteNotFoundError,
+    Neo4jWriteRepository,
+    Neo4jWriteValidationError,
+    WriteReceipt,
+)
 
 __all__ = [
     "Neo4jConfigurationError",
@@ -30,4 +39,11 @@ __all__ = [
     "KGImpactResult",
     "Neo4jImpactQueryError",
     "Neo4jImpactQueryService",
+    "Neo4jUnsupportedWriteError",
+    "Neo4jWriteConflictError",
+    "Neo4jWriteError",
+    "Neo4jWriteNotFoundError",
+    "Neo4jWriteRepository",
+    "Neo4jWriteValidationError",
+    "WriteReceipt",
 ]
