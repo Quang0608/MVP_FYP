@@ -25,6 +25,11 @@ from .write_repository import (
     Neo4jWriteValidationError,
     WriteReceipt,
 )
+from .runtime import (
+    Neo4jRuntimePreflightError,
+    Neo4jRuntimeRepository,
+    preflight_neo4j_runtime,
+)
 
 __all__ = [
     "Neo4jConfigurationError",
@@ -46,4 +51,7 @@ __all__ = [
     "Neo4jWriteRepository",
     "Neo4jWriteValidationError",
     "WriteReceipt",
+    "Neo4jRuntimePreflightError",
+    "Neo4jRuntimeRepository",
+    "preflight_neo4j_runtime",
 ]

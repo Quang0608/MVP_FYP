@@ -33,6 +33,7 @@ issue where implementation is required.
 | CON-025 | Open | Shipment exposure windows fall back to planned leg times, current ETA, and baseline route duration when exact schedules are missing; they are deterministic approximations, not live tracking. | ISS-0043; AIS/live schedule integration deferred |
 | CON-026 | Open | Phase 4.2A Open-Meteo retrieval preserves provider payloads and validates structure, but does not yet normalize observations, score weather, or align forecasts to shipment traversal windows. | ISS-0044; Phase 4.2B |
 | CON-027 | Open | Open-Meteo requests are opt-in and use a local file cache/snapshot store; provider availability, forecast model changes, and retention policy require later operational review. | ISS-0044; deployment/data-retention review deferred |
+| CON-028 | Open | Phase 6 Neo4j runtime selection covers the supported disruption, simulation, reroute-decision, explanation, history, and canonical-read paths; canonical shipment progress or route-plan/leg mutations remain unsupported, and rollback after Neo4j writes requires explicit export/replay reconciliation. | ISS-0054; Phase 7 review |
 
 ## Maintenance Rule
 

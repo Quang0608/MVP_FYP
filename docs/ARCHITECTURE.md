@@ -323,3 +323,29 @@ immutable during this phase. The live write verifier uses a unique disposable
 scope, proves rollback/idempotency/stale-write behavior, compares imported
 snapshot counts before and after, and removes only its own test records. No
 runtime cutover has occurred; SQLite remains the operational source of truth.
+
+## Neo4j Phase 6 controlled runtime selection
+
+The runtime persistence boundary now has an explicit `PERSISTENCE_BACKEND`
+selector. `sqlite` remains the development default. With `neo4j`, startup
+preflight verifies the configured Neo4j connection, schema objects, exact
+Phase 2 snapshot counts, and typed relationship counts before requests are
+served. The existing repository function interfaces dispatch canonical reads,
+simulation/history persistence, reroute decisions, and explanation updates to
+the selected backend; no dual writes or implicit fallback are permitted.
+
+The deterministic execution boundary is unchanged: `run_simulation()` and
+reroute services still build isolated NetworkX graphs, apply transient
+disruption state, evaluate paths, score candidates, and classify impacts. The
+Supervisor continues to call trusted deterministic tools and the LLM remains
+explanation-only. PortWatch/weather are external or transient and are not
+cut over to Neo4j. The selected Neo4j mode does not manufacture shipment
+progress, route-plan versions, or leg mutations.
+
+The controlled cutover evidence in
+`docs/migration/phase6/CUTOVER_REPORT.json` compares the fixed Singapore
+closure, reroute replay, persisted history, explanation state, and API-shaped
+responses against an isolated SQLite copy. Rollback is explicit: quiesce
+writers, export/backup Neo4j write-scope records, switch to SQLite, and
+reconcile/replay accepted Neo4j writes before resuming. SQLite is never an
+automatic stale-state failover.

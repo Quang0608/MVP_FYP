@@ -509,3 +509,17 @@ Canonical compact briefing for AI agents. Read this file together with
   evidence. The imported graph stayed at 91/150/220/220/1,000 and 3,960
   relationships. Focused tests 25;
   full backend 132 with 3 existing warnings; compile and diff checks passed.
+- 2026-10-13T19:30:39+08:00 [USER] Requested only Neo4j migration Phase 6:
+  controlled runtime selection, preflight-gated integration, isolated SQLite
+  versus Neo4j end-to-end verification, and rollback safety; no Phase 7.
+- 2026-10-13T19:30:39+08:00 [CODE] Added explicit `PERSISTENCE_BACKEND`
+  dispatch with SQLite default, Neo4j startup preflight, selected-backend
+  reads/writes for supported runtime operations, and no silent fallback.
+  Canonical progress/plan/leg mutations remain explicitly unsupported.
+- 2026-10-13T19:30:39+08:00 [TOOL] The live Phase 6 cutover report passed 7/7
+  parity checks for the fixed Singapore closure scenario, including impact,
+  routing, persisted replay/history, explanations, and API-shaped contracts.
+  Neo4j preflight passed the 91/150/220/220/1,000 snapshot and 3,960
+  relationships; unavailable Neo4j failed closed and cleanup removed 31
+  isolated test nodes. Focused tests 31; full backend 138 with 3 existing
+  deprecation warnings; frontend build, compilation, and diff checks passed.

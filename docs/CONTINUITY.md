@@ -764,3 +764,27 @@ See [CONCERNS.md](CONCERNS.md).
   remained.
 - [TOOL] Focused Neo4j tests passed 25; full backend tests passed 132 with 3
   existing deprecation warnings. Compilation and `git diff --check` passed.
+
+## Neo4j Migration Phase 6 Controlled Runtime Cutover
+
+- Date: 2026-10-13T19:30:39+08:00
+- Local issue: `ISS-0054`
+- [USER] Requested only controlled runtime selection and end-to-end SQLite
+  versus Neo4j verification. SQLite remains the default; no Phase 7,
+  automatic failover, dual writes, API changes, or routing changes.
+- [CODE] Added explicit `PERSISTENCE_BACKEND` dispatch, Neo4j snapshot/write
+  scope settings, startup preflight, selected-backend runtime reads and
+  supported simulation/decision/explanation writes, plus no-fallback failure
+  behavior. Canonical progress/plan/leg mutations remain unsupported.
+- [TOOL] `scripts/migration/verify_neo4j_cutover.py` passed all 7/7 fixed
+  Singapore-closure parity checks for impacts, classifications, candidate
+  scores/rankings, persisted history/replay, explanations, baseline IDs, and
+  API-shaped response keys. Preflight passed the 91/150/220/220/1,000
+  snapshot and 3,960 relationships; the outage check failed closed; cleanup
+  removed 31 isolated test nodes. The machine-readable evidence is in
+  `docs/migration/phase6/CUTOVER_REPORT.json`.
+- [TOOL] Focused migration tests passed 31; full backend tests passed 138 with
+  3 existing deprecation warnings; frontend production build and compilation
+  passed; `git diff --check` passed with line-ending normalization warnings
+  only. Rollback is documented as an explicit quiesce/export/select/reconcile
+  procedure, not automatic failover.

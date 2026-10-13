@@ -30,11 +30,15 @@ Create `.env` from `.env.example`. Never commit `.env`.
 | `OPEN_METEO_RAW_SNAPSHOT_DIRECTORY` | Immutable raw weather snapshot root |
 | `OPEN_METEO_CACHE_DIRECTORY` | Local weather cache root; ignored by git |
 | `OPEN_METEO_MAX_COORDINATES_PER_REQUEST` | Maximum coordinates in one provider batch |
-| `PERSISTENCE_BACKEND` | Foundation selector placeholder; defaults to `sqlite` in Phase 1 |
+| `PERSISTENCE_BACKEND` | Explicit runtime selector: `sqlite` (default) or preflight-gated `neo4j`; no silent fallback |
 | `NEO4J_URI` | Bolt URI; `bolt://localhost:7687` from the host or `bolt://neo4j:7687` inside Compose |
 | `NEO4J_USERNAME` | Neo4j username; default `neo4j` |
 | `NEO4J_PASSWORD` | Required local secret for the Neo4j container/driver; keep only in `.env` |
 | `NEO4J_DATABASE` | Explicit Neo4j database name; default `neo4j` |
+| `NEO4J_SNAPSHOT_ID` | Canonical imported snapshot required by Neo4j runtime preflight |
+| `NEO4J_IMPORT_SCOPE` | Canonical imported graph scope required by Neo4j runtime preflight |
+| `NEO4J_WRITE_SNAPSHOT_ID` | Namespaced Neo4j runtime-write snapshot marker |
+| `NEO4J_WRITE_IMPORT_SCOPE` | Namespaced Neo4j runtime-write scope marker |
 | `NEO4J_CONNECTION_TIMEOUT_SECONDS` | Driver connection timeout |
 | `NEO4J_CONNECTION_ACQUISITION_TIMEOUT_SECONDS` | Driver pool acquisition timeout |
 | `NEO4J_MAX_TRANSACTION_RETRY_TIME_SECONDS` | Driver managed-transaction retry bound |
@@ -84,6 +88,24 @@ docker compose ps neo4j
 The bootstrap creates only the Phase 1 schema. It does not import the SQLite
 baseline or application data. The Neo4j service uses named `neo4j_data` and
 `neo4j_logs` volumes; do not remove those volumes as part of routine shutdown.
+
+To run the selected Neo4j backend after the Phase 2 snapshot is imported, set
+`PERSISTENCE_BACKEND=neo4j` together with the canonical snapshot/scope values
+and the namespaced write-scope values, then start the backend. Startup performs
+connectivity, schema, count, and relationship preflight and fails closed if
+any check fails. It does not fall back to SQLite:
+
+```powershell
+$env:PERSISTENCE_BACKEND="neo4j"
+.\.venv\Scripts\python.exe scripts/migration/check_neo4j.py
+.\.venv\Scripts\python.exe scripts/migration/verify_neo4j_cutover.py --source-sqlite reroute_agent.db --report-out docs/migration/phase6/CUTOVER_REPORT.json
+uvicorn backend.app.main:app --reload
+```
+
+Rollback is a controlled operator action: quiesce writers, export/backup the
+Neo4j runtime-write scope, switch `PERSISTENCE_BACKEND=sqlite`, and reconcile
+or replay accepted Neo4j writes before resuming. The frozen SQLite database is
+not an automatic failover for new Neo4j state.
 
 ## Verification
 

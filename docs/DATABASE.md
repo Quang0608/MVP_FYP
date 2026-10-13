@@ -321,6 +321,17 @@ write path and are explicitly outside this Phase 5 adapter. Live evidence is
 recorded in `docs/migration/phase5/WRITE_REPORT.json` and uses a disposable
 scope that is cleaned after verification.
 
+Phase 6 makes backend selection operational but explicit. `PERSISTENCE_BACKEND`
+remains `sqlite` by default. Selecting `neo4j` causes startup to run the
+Neo4j runtime preflight for connectivity, schema, the imported canonical
+snapshot, and relationship integrity. The repository facade then routes the
+supported canonical reads and simulation/history/decision/explanation writes
+through Neo4j. No operation silently falls back to SQLite, and the frozen
+SQLite database remains a dated archive rather than an automatic failover.
+NetworkX scenario state and external provider overlays remain transient. The
+Phase 6 evidence is recorded in
+`docs/migration/phase6/CUTOVER_REPORT.json`.
+
 ## Change Rules
 
 Before changing persistence:

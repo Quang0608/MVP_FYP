@@ -258,6 +258,11 @@ Session = sessionmaker(bind=engine, expire_on_commit=False)
 
 
 def initialise_database() -> None:
+    if settings.persistence_backend == "neo4j":
+        from .persistence.neo4j.runtime import preflight_neo4j_runtime
+
+        preflight_neo4j_runtime(settings)
+        return
     Base.metadata.create_all(engine)
     _ensure_runtime_columns()
     seed_master_data()
@@ -448,6 +453,12 @@ def _backfill_route_exposure_metadata(session) -> None:
         session.commit()
 
 
+def _neo4j_runtime_repository():
+    from .persistence.neo4j.runtime import Neo4jRuntimeRepository
+
+    return Neo4jRuntimeRepository(settings)
+
+
 def load_runtime_dataset(session_factory=None) -> RuntimeDataset:
     """Load the active canonical snapshot from the configured SQLite store.
 
@@ -455,6 +466,9 @@ def load_runtime_dataset(session_factory=None) -> RuntimeDataset:
     it can inspect a supplied SQLite file without changing the application
     runtime engine or startup behavior.
     """
+
+    if session_factory is None and settings.persistence_backend == "neo4j":
+        return _neo4j_runtime_repository().load_runtime_dataset()
 
     active_session_factory = session_factory or Session
     with active_session_factory() as session:
@@ -595,6 +609,10 @@ def load_supply_chain_data() -> tuple[list[Location], list[Route], list[Shipment
 
 
 def save_disruption(disruption: Disruption, simulation_result: dict) -> None:
+    if settings.persistence_backend == "neo4j":
+        _neo4j_runtime_repository().save_disruption(disruption, simulation_result)
+        return
+
     request = disruption.request
     start_time = disruption.created_at
     estimated_end_time = start_time + timedelta(hours=request.duration_hours)
@@ -643,6 +661,13 @@ def save_disruption(disruption: Disruption, simulation_result: dict) -> None:
 
 
 def save_agent_decisions(disruption_id: str, reroute_result: dict) -> None:
+    if settings.persistence_backend == "neo4j":
+        _neo4j_runtime_repository().save_agent_decisions(
+            disruption_id,
+            reroute_result,
+        )
+        return
+
     recommendations = reroute_result.get("recommendations", [])
     now = datetime.now(timezone.utc)
 
@@ -651,6 +676,13 @@ def save_agent_decisions(disruption_id: str, reroute_result: dict) -> None:
         if run is None:
             run = _migrate_legacy_run_for_write(session, disruption_id)
 
+        if run.reroute_result:
+            try:
+                if json.loads(run.reroute_result) == reroute_result:
+                    return
+            except (TypeError, ValueError, json.JSONDecodeError):
+                pass
+
         existing = session.scalars(
             select(AgentDecisionRecord).where(
                 AgentDecisionRecord.disruption_id == disruption_id
@@ -658,6 +690,7 @@ def save_agent_decisions(disruption_id: str, reroute_result: dict) -> None:
         ).all()
         for record in existing:
             session.delete(record)
+        session.flush()
 
         for recommendation in recommendations:
             selected_route = recommendation.get("selected_route")
@@ -700,6 +733,14 @@ def save_agent_decisions(disruption_id: str, reroute_result: dict) -> None:
 def save_decision_explanation(
     disruption_id: str, shipment_id: str, explanation: dict
 ) -> None:
+    if settings.persistence_backend == "neo4j":
+        _neo4j_runtime_repository().save_decision_explanation(
+            disruption_id,
+            shipment_id,
+            explanation,
+        )
+        return
+
     with Session() as session:
         decision = session.scalar(
             select(AgentDecisionRecord).where(
@@ -717,6 +758,9 @@ def save_decision_explanation(
 
 
 def get_run(run_id: str) -> dict | None:
+    if settings.persistence_backend == "neo4j":
+        return _neo4j_runtime_repository().get_run(run_id)
+
     with Session() as session:
         disruption = session.get(DisruptionRecord, run_id)
         if disruption is not None:
@@ -747,6 +791,9 @@ def get_run(run_id: str) -> dict | None:
 
 
 def all_runs() -> list[dict]:
+    if settings.persistence_backend == "neo4j":
+        return _neo4j_runtime_repository().all_runs()
+
     with Session() as session:
         structured = []
         disruptions = session.scalars(

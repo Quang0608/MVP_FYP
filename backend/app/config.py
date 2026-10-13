@@ -34,6 +34,10 @@ class Settings(BaseSettings):
     neo4j_username: str = "neo4j"
     neo4j_password: SecretStr = SecretStr("")
     neo4j_database: str = "neo4j"
+    neo4j_snapshot_id: str = "asia-runtime-seed-20260913"
+    neo4j_import_scope: str = "phase2-active-asia-snapshot"
+    neo4j_write_snapshot_id: str = "neo4j-runtime-write-v1"
+    neo4j_write_import_scope: str = "neo4j-runtime-write-v1"
     neo4j_connection_timeout_seconds: float = 10
     neo4j_connection_acquisition_timeout_seconds: float = 10
     neo4j_max_transaction_retry_time_seconds: float = 10
@@ -63,6 +67,18 @@ class Settings(BaseSettings):
         if value <= 0:
             raise ValueError("Neo4j timeout values must be greater than zero")
         return value
+
+    @field_validator(
+        "neo4j_snapshot_id",
+        "neo4j_import_scope",
+        "neo4j_write_snapshot_id",
+        "neo4j_write_import_scope",
+    )
+    @classmethod
+    def validate_neo4j_scope_value(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("Neo4j snapshot and scope values must not be empty")
+        return value.strip()
 
 
 settings = Settings()
