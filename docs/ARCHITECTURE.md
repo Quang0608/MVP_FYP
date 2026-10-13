@@ -280,3 +280,15 @@ Phase 4.2A stops at raw evidence. It does not normalize weather observations,
 create weather `ExternalSignal` records, calculate severity or risk, generate
 `OperationalEffect`, modify NetworkX or shipment state, or reroute anything.
 Those boundaries remain reserved for later phases.
+
+## Neo4j Phase 3 read-only parity boundary
+
+Neo4j is currently a staged graph mirror of the active Asia snapshot, not an
+application runtime dependency. `Neo4jReadRepository` is an explicit migration
+adapter with snapshot/import-scope filtering. Its canonical models are passed
+to the existing `build_supply_chain_graph()` function; `NetworkStateEngine`,
+impact classification, reroute ranking, API contracts, frontend behavior, and
+Supervisor/LLM behavior are unchanged. The parity CLI produces
+`docs/migration/phase3/PARITY_REPORT.json` and does not perform writes or alter
+the SQLite source of truth. Runtime cutover remains a later, separately gated
+phase.

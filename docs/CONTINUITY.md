@@ -701,3 +701,22 @@ See [CONCERNS.md](CONCERNS.md).
   no duplicate nodes, attribute mismatches, or unresolved references.
 - [ASSUMPTION] Neo4j remains a staged imported graph only; Phase 3 adapter,
   shadow reads, and runtime cutover require separate approval.
+
+## Neo4j Migration Phase 3 Read Parity
+
+- Date: 2026-10-13T18:48:17+08:00
+- Local issue: `ISS-0051`
+- [USER] Requested only the read-only Neo4j repository, NetworkX projection,
+  stable SQLite/Neo4j parity harness, and frozen deterministic scenario parity;
+  no runtime cutover or Phase 4.
+- [CODE] Added `Neo4jReadRepository`, `project_neo4j`, canonical parity
+  comparison, fixed-clock scenario comparison, focused tests, and
+  `docs/migration/phase3/PARITY_REPORT.json`.
+- [TOOL] Live parity passed against the Phase 2 snapshot: 91 locations, 150
+  routes, 220 shipments, 220 version-1 plans, 1,000 ordered legs, 3,960 typed
+  relationships, 91 graph nodes, and 150 directed edges. All eight frozen
+  scenarios matched SQLite and Phase 0 outputs. Focused tests: 4 passed; full
+  backend: 122 passed with 3 existing deprecation warnings.
+- [ASSUMPTION] PortWatch/provider state is excluded from canonical parity and
+  both comparison paths use empty transient state. SQLite remains the runtime
+  source of truth; Phase 4 has not started.

@@ -291,8 +291,13 @@ compatibility/history rows, disruptions, simulation runs, agent decisions,
 PortWatch observations, and transient scenario state. A second import verifies
 the same IDs, canonical attributes, and relationship counts without duplicates.
 
-`PERSISTENCE_BACKEND=sqlite` remains the default. A later phase must introduce a
-repository adapter and parity gate before any API query or write can use Neo4j.
+`PERSISTENCE_BACKEND=sqlite` remains the default. Phase 3 adds an explicitly
+invoked, read-only `Neo4jReadRepository` and parity CLI under
+`backend/app/persistence/neo4j/` and `scripts/migration/`; it is not wired into
+application startup, API reads, or writes. The adapter is scoped to the exact
+Phase 2 snapshot/import scope and projects through the existing NetworkX graph
+builder. Scenario overlays remain transient and are never written to Neo4j.
+The machine-readable evidence is `docs/migration/phase3/PARITY_REPORT.json`.
 
 ## Change Rules
 

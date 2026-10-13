@@ -475,3 +475,13 @@ Canonical compact briefing for AI agents. Read this file together with
   passed for 91 locations, 150 routes, 220 shipments, 220 plans, 1,000 legs,
   and 3,960 relationships; no attribute or reference mismatches. Phase 3 was
   not started.
+- 2026-10-13T18:48:17+08:00 [USER] Requested only Neo4j migration Phase 3:
+  read adapter, NetworkX projection parity, SQLite/Neo4j comparison, and fixed
+  deterministic scenario verification; no runtime cutover or Phase 4.
+- 2026-10-13T18:48:17+08:00 [CODE] Added snapshot-scoped read repository,
+  canonical graph projection, parity harness/CLI, focused tests, and the
+  machine-readable report at `docs/migration/phase3/PARITY_REPORT.json`.
+- 2026-10-13T18:48:17+08:00 [TOOL] Live Phase 3 parity passed for 91/150/220/
+  220 plans/1,000 legs, 3,960 relationships, and all eight frozen scenarios;
+  focused tests 4 passed and full backend tests 122 passed with 3 existing
+  deprecation warnings. SQLite remains the default and Phase 4 was not started.
