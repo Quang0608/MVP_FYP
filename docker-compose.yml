@@ -1,7 +1,25 @@
 services:
+  neo4j:
+    image: neo4j:2026.09.0
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: ${NEO4J_USERNAME:-neo4j}/${NEO4J_PASSWORD:?Set NEO4J_PASSWORD in .env}
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
   backend:
     build: .
     env_file: .env
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
     ports: ["8000:8000"]
   frontend:
     build:
@@ -10,3 +28,7 @@ services:
         VITE_API_URL: /api
     ports: ["8501:80"]
     depends_on: [backend]
+
+volumes:
+  neo4j_data:
+  neo4j_logs:

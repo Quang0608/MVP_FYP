@@ -660,3 +660,28 @@ See [CONCERNS.md](CONCERNS.md).
   validation, diff check, and an isolated in-memory Singapore API smoke passed.
 - [ASSUMPTION] Compatibility/history rows remain outside the active migration
   snapshot until a later approved import policy defines their ownership.
+
+## Neo4j Migration Phase 1 Foundation
+
+- Date: 2026-10-13T17:35:22+08:00
+- Local issue: `ISS-0049`
+- [USER] Requested Phase 1 only: Neo4j Community Compose foundation, official
+  driver/configuration, lifecycle and health check, initial KG schema, tests,
+  and migration progress update; no data migration or behavior changes.
+- [CODE] Added pinned `neo4j==6.3.0` and `neo4j:2026.09.0`, named Compose
+  volumes, validated settings, a one-driver lifecycle manager, sanitized health
+  and schema bootstrap CLIs, and eight identity constraints plus five lookup
+  indexes. SQLite remains the default operational backend.
+- [TOOL] 113 backend tests passed with 3 existing warnings; foundation tests,
+  compilation, Compose config validation, and diff check passed. Live Neo4j
+  startup/schema verification is BLOCKED by unavailable Docker Desktop Linux
+  engine.
+
+## Neo4j Migration Phase 1 Live Verification
+
+- Date: 2026-10-13T18:01:59+08:00
+- [TOOL] Neo4j Community container reached `healthy`; the repository health
+  check passed, schema bootstrap passed twice with identical results, and
+  read-only inspection confirmed 8 uniqueness constraints plus 5 explicit
+  indexes in `ONLINE` state.
+- [TOOL] Foundation tests passed again (6). Phase 2 data import was not started.

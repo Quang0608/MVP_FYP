@@ -1,3 +1,6 @@
+from typing import Literal
+
+from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -26,6 +29,40 @@ class Settings(BaseSettings):
     open_meteo_raw_snapshot_directory: str = "data/raw/weather/open_meteo"
     open_meteo_cache_directory: str = "data/cache/weather/open_meteo"
     open_meteo_max_coordinates_per_request: int = 50
+    persistence_backend: Literal["sqlite", "neo4j"] = "sqlite"
+    neo4j_uri: str = "bolt://localhost:7687"
+    neo4j_username: str = "neo4j"
+    neo4j_password: SecretStr = SecretStr("")
+    neo4j_database: str = "neo4j"
+    neo4j_connection_timeout_seconds: float = 10
+    neo4j_connection_acquisition_timeout_seconds: float = 10
+    neo4j_max_transaction_retry_time_seconds: float = 10
+
+    @field_validator("neo4j_uri")
+    @classmethod
+    def validate_neo4j_uri(cls, value: str) -> str:
+        allowed_schemes = (
+            "bolt://",
+            "bolt+ssc://",
+            "bolt+s://",
+            "neo4j://",
+            "neo4j+ssc://",
+            "neo4j+s://",
+        )
+        if not value.startswith(allowed_schemes):
+            raise ValueError("neo4j_uri must use a supported Neo4j URI scheme")
+        return value
+
+    @field_validator(
+        "neo4j_connection_timeout_seconds",
+        "neo4j_connection_acquisition_timeout_seconds",
+        "neo4j_max_transaction_retry_time_seconds",
+    )
+    @classmethod
+    def validate_neo4j_timeout(cls, value: float) -> float:
+        if value <= 0:
+            raise ValueError("Neo4j timeout values must be greater than zero")
+        return value
 
 
 settings = Settings()

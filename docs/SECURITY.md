@@ -119,6 +119,13 @@ Supervisor path is deterministic and does not require network access.
 
 ## Dependency and Deployment Review
 
+Phase 1 adds an opt-in Neo4j Community container and official Python driver.
+`NEO4J_PASSWORD` is read through `SecretStr`, is never included in health or
+bootstrap output, and must be supplied through the local ignored `.env` file.
+The Compose service uses `NEO4J_AUTH` interpolation rather than a committed
+credential. The Phase 1 health result reports only `ok`, `unconfigured`, or
+`unavailable` plus the configured database name.
+
 Before a production-like deployment, add:
 
 - authentication and authorization;

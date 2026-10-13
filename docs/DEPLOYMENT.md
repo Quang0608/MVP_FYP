@@ -30,7 +30,14 @@ Create `.env` from `.env.example`. Never commit `.env`.
 | `OPEN_METEO_RAW_SNAPSHOT_DIRECTORY` | Immutable raw weather snapshot root |
 | `OPEN_METEO_CACHE_DIRECTORY` | Local weather cache root; ignored by git |
 | `OPEN_METEO_MAX_COORDINATES_PER_REQUEST` | Maximum coordinates in one provider batch |
-| `NEO4J_*` | Reserved placeholders; currently unused |
+| `PERSISTENCE_BACKEND` | Foundation selector placeholder; defaults to `sqlite` in Phase 1 |
+| `NEO4J_URI` | Bolt URI; `bolt://localhost:7687` from the host or `bolt://neo4j:7687` inside Compose |
+| `NEO4J_USERNAME` | Neo4j username; default `neo4j` |
+| `NEO4J_PASSWORD` | Required local secret for the Neo4j container/driver; keep only in `.env` |
+| `NEO4J_DATABASE` | Explicit Neo4j database name; default `neo4j` |
+| `NEO4J_CONNECTION_TIMEOUT_SECONDS` | Driver connection timeout |
+| `NEO4J_CONNECTION_ACQUISITION_TIMEOUT_SECONDS` | Driver pool acquisition timeout |
+| `NEO4J_MAX_TRANSACTION_RETRY_TIME_SECONDS` | Driver managed-transaction retry bound |
 
 ## Local Startup
 
@@ -62,6 +69,21 @@ active network.
 The frontend uses OpenStreetMap tiles for the geographic basemap. Browser
 network access is required to load tiles, and the map retains the required
 OpenStreetMap attribution.
+
+Phase 1 adds an optional Neo4j Community service. SQLite remains the backend
+default and the backend does not connect to Neo4j during normal SQLite startup.
+Set a private `NEO4J_PASSWORD` in `.env`, then use:
+
+```powershell
+docker compose up -d neo4j
+docker compose ps neo4j
+.\.venv\Scripts\python.exe scripts/migration/check_neo4j.py
+.\.venv\Scripts\python.exe scripts/migration/bootstrap_neo4j.py
+```
+
+The bootstrap creates only the Phase 1 schema. It does not import the SQLite
+baseline or application data. The Neo4j service uses named `neo4j_data` and
+`neo4j_logs` volumes; do not remove those volumes as part of routine shutdown.
 
 ## Verification
 

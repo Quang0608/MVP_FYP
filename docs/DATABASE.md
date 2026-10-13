@@ -276,10 +276,15 @@ node state in this phase.
 
 ## Graph Storage Boundary
 
-The current graph engine remains NetworkX. Neo4j environment variables are
-placeholders, and no Neo4j repository is active. The relational schema stores the
-same node and edge master data so a later Neo4j adapter can seed its graph without
-changing API contracts.
+The current graph engine remains NetworkX and SQLite remains the operational
+runtime source of truth. Phase 1 adds an opt-in Neo4j Community foundation only:
+the pinned driver, lifecycle manager, health check, and idempotent initial
+constraints/indexes are available, but no Neo4j repository is active and no
+SQLite data is imported. The Phase 1 schema is documented in
+`docs/migration/NEO4J_SCHEMA.md`.
+
+`PERSISTENCE_BACKEND=sqlite` remains the default. A later phase must introduce a
+repository adapter and parity gate before any API query or write can use Neo4j.
 
 ## Change Rules
 

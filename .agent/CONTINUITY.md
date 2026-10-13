@@ -449,3 +449,19 @@ Canonical compact briefing for AI agents. Read this file together with
   component, and equal repeated-request outputs. Full suite: 107 passed;
   compilation, artifact validation, diff check, and isolated Singapore smoke
   passed.
+- 2026-10-13T17:35:22+08:00 [USER] Requested Neo4j migration Phase 1 only:
+  Community Compose foundation, official driver/configuration, lifecycle and
+  health check, initial schema, tests, and progress documentation; no data
+  migration or application behavior changes.
+- 2026-10-13T17:35:22+08:00 [CODE] Added pinned `neo4j==6.3.0` support with
+  `neo4j:2026.09.0` Compose service, named volumes, validated settings,
+  lifecycle manager, health/bootstrap CLIs, and eight uniqueness constraints
+  plus five lookup indexes. SQLite remains the default backend.
+- 2026-10-13T17:35:22+08:00 [TOOL] Full suite passed with 113 tests;
+  foundation tests (6), compilation, Compose config, and diff check passed.
+  Live Neo4j startup/schema verification is BLOCKED because the Docker Desktop
+  Linux engine pipe is unavailable.
+- 2026-10-13T18:01:59+08:00 [TOOL] Docker Neo4j container reached healthy state;
+  live health passed, schema bootstrap passed twice with identical results, and
+  read-only inspection confirmed 8 uniqueness constraints plus 5 explicit
+  indexes ONLINE. Foundation tests passed again (6); Phase 2 was not started.
