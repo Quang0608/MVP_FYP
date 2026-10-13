@@ -437,3 +437,15 @@ Canonical compact briefing for AI agents. Read this file together with
   prompt. The requested filename spelling was preserved.
 - 2026-10-13T00:00:00+08:00 [TOOL] Documentation issue `ISS-0047` recorded;
   no application code, database records, or deployment files were changed.
+- 2026-10-13T09:30:00+08:00 [USER] Requested Neo4j migration Phase 0 only:
+  establish the SQLite baseline, active counts, deterministic outputs,
+  migration manifest, and progress report; stop before Phase 1.
+- 2026-10-13T09:30:00+08:00 [CODE] Completed `ISS-0048` with a read-only
+  `backend/app/migration_baseline.py` exporter, CLI wrapper, baseline JSON
+  artifacts, structural checks, and fixed-clock scenario evidence. No Neo4j,
+  routing, LLM, API, or frontend behavior changed.
+- 2026-10-13T09:30:00+08:00 [TOOL] Verified active counts 91/150/220/1,000,
+  zero orphan references, zero parallel route pairs, one weakly connected
+  component, and equal repeated-request outputs. Full suite: 107 passed;
+  compilation, artifact validation, diff check, and isolated Singapore smoke
+  passed.

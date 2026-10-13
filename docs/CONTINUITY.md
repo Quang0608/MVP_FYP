@@ -643,3 +643,20 @@ See [CONCERNS.md](CONCERNS.md).
 - [TOOL] Documentation-only verification passed with `git diff --check`.
   Runtime tests and the local demo were not rerun because application behavior
   and data were unchanged.
+## Neo4j Migration Phase 0 Baseline Freeze
+
+- Date: 2026-10-13T09:30:00+08:00
+- Local issue: `ISS-0048`
+- [USER] Requested execution of Neo4j migration Phase 0 only: establish the
+  SQLite baseline, active counts, deterministic outputs, manifest, and progress
+  report, then stop before Phase 1.
+- [CODE] Added a read-only baseline exporter, sanitized active snapshot,
+  structural validation, fixed-clock scenario evidence, and migration reports.
+  No Neo4j, routing, LLM, API, or frontend behavior was changed.
+- [TOOL] Verified 91 locations, 150 directed routes, 220 shipments, and 1,000
+  ordered legs; zero orphan references; zero parallel route pairs; one weakly
+  connected component; and equal repeated-request outputs.
+- [TOOL] Full backend suite passed with 107 tests; compilation, artifact
+  validation, diff check, and an isolated in-memory Singapore API smoke passed.
+- [ASSUMPTION] Compatibility/history rows remain outside the active migration
+  snapshot until a later approved import policy defines their ownership.
